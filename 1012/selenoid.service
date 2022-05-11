@@ -1,0 +1,17 @@
+[Unit]
+Description=Selenoid Service
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+WorkingDirectory=/opt/selenoid
+
+# Compose up
+ExecStart=/sbin/docker-compose -f selenoid-compose.yaml up
+
+# Compose down, remove containers and volumes
+ExecStop=/sbin/docker-compose -f selenoid-compose.yaml down -v
+
+[Install]
+WantedBy=multi-user.target
