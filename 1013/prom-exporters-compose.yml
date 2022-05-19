@@ -1,0 +1,17 @@
+version: '3.9'
+
+networks:
+  prometheus:
+
+services:
+
+  blackbox:
+    image: prom/blackbox-exporter:v0.20.0
+    container_name: blackbox
+    networks:
+      - prometheus
+    ports:
+      - 9115:9115
+    volumes:
+      - /etc/prometheus/blackbox.yml:/config/blackbox.yml
+    command: '--config.file=/config/blackbox.yml'
